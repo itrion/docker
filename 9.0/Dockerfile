@@ -14,9 +14,9 @@ RUN set -x; \
             python-support \
             python-watchdog \
             python-crypto \
-        && curl -o wkhtmltox.deb -SL http://nightly.odoo.com/extra/wkhtmltox-0.12.1.2_linux-jessie-amd64.deb \
-        && echo '40e8b906de658a2221b15e4e8cd82565a47d7ee8 wkhtmltox.deb' | sha1sum -c - \
-        && dpkg --force-depends -i wkhtmltox.deb \
+        && curl -O -SL "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.1/wkhtmltox-0.12.1_linux-wheezy-amd64.deb" \
+        && echo '07d397b32f91722de683e8777df2ddd6c49662c2 wkhtmltox-0.12.1_linux-wheezy-amd64.deb' | sha1sum -c - \
+        && dpkg --force-depends -i wkhtmltox-0.12.1_linux-wheezy-amd64.deb \
         && apt-get -y install -f --no-install-recommends \
         && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false npm \
         && rm -rf /var/lib/apt/lists/* wkhtmltox.deb \
