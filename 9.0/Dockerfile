@@ -24,14 +24,14 @@ RUN set -x; \
 
 # Install Odoo
 ENV ODOO_VERSION 9.0
-ENV ODOO_RELEASE 20180808
+ENV ODOO_RELEASE 20190401
 RUN set -x; \
-        curl -o odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}c.${ODOO_RELEASE}_all.deb \
-        && echo '25f90d98509484bc4b54174ccb814dd96ddb797b odoo.deb' | sha1sum -c - \
-        && dpkg --force-depends -i odoo.deb \
+        curl -O -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}c.${ODOO_RELEASE}_all.deb \
+        && echo "fa1187c3887b7b1fbcd8e2e277c5f648f8d84855 odoo_${ODOO_VERSION}c.${ODOO_RELEASE}_all.deb" | sha1sum -c - \
+        && dpkg --force-depends -i "odoo_${ODOO_VERSION}c.${ODOO_RELEASE}_all.deb" \
         && apt-get update \
         && apt-get -y install -f --no-install-recommends \
-        && rm -rf /var/lib/apt/lists/* odoo.deb
+        && rm -rf /var/lib/apt/lists/* "odoo_${ODOO_VERSION}c.${ODOO_RELEASE}_all.deb"
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
